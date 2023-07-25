@@ -1,7 +1,7 @@
 # High performance Python 🚀
-Zbyszek, Seetha, & Jakob
+Zbyszek & Aitor
 
-ASPP LatAm 2023, CDMX, Mexico
+ASPP 2023, Heraklion, Greece
 
 # Content
 [Intro and profiling slides](./intro_profiling.ipynb)
