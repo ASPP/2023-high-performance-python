@@ -1,0 +1,6 @@
+[build-system]
+requires = ['mesonpep517', 'cython']
+build-backend = 'mesonpep517.buildapi'
+
+[tool.mesonpep517.metadata]
+summary = 'Function integration optimized with cython'
