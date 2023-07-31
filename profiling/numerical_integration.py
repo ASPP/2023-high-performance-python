@@ -1,69 +1,82 @@
-import argparse
+''' START OF CODE TO BE OPTIMIZED '''
+# Do not use any additional packages!
+# Several improvements are possible
 
-import matplotlib.pyplot as plt
-
-
-def parse_arguments():
-    parser = argparse.ArgumentParser(
-        description="Measure numerical intergration error."
-    )
-    parser.add_argument(
-        "n_max", type=int, help="number of bins to use for integration",
-    )
-    parser.add_argument(
-        "a", type=float, help="lower bound for integration",
-    )
-    parser.add_argument(
-        "b", type=float, help="upper bound for integration",
-    )
-
-    return parser.parse_args()
-
-
-def integrate_f(f, a, b, n):
+def numerical_integration(f, a, b, n):
     s = []
     for i in range(n):
         dx = (b - a) / n
         x = a + (i + 0.5) * dx
         y = f(x)
         s = s + [y * dx]
-    return sum(s)
+    return s
 
 
-def measure_integration_errors(f, F, n_max, a, b):
-    errors = []
-    for n in range(1, n_max, 10):
+def measure_integration_errors(f, F, n_values, a, b):
+    # Calculate all integrals
+    F_a_list = []
+    F_n_list = []
+    for n in n_values:
         F_analytical = F(b) - F(a)
-        F_numerical = integrate_f(f, a, b, n)
+        F_numerical_boxes = numerical_integration(f, a, b, n)
+        F_a_list.append(F_analytical)
+        F_n_list.append(F_numerical_boxes)
+
+    # Calculate and sum error
+    errors = []
+    for F_analytical, F_numerical_boxes in zip(F_a_list, F_n_list):
+        F_numerical = sum(F_numerical_boxes)
         error = abs(F_analytical - F_numerical)
         errors = errors + [error]
+
     return errors
 
 
-def plot_results(n_max, errors):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_xlim(1, n_max)
-    ax.set_ylim(1e-7, max(errors))
-    ax.set_xlabel("Number of bins")
-    ax.set_ylabel("Absolute error")
-    ax.set_yscale("log")
-    ax.plot(range(1, n_max, 10), errors)
-    fig.savefig("numerical_integration_error.pdf")
+# def numerical_integration(f, a, b, n):
+#     s = 0
+#     for i in range(n):
+#         dx = (b - a) / n
+#         x = a + (i + 0.5) * dx
+#         y = f(x)
+#         s += y*dx
+#     return s
 
 
-def main():
-    args = parse_arguments()
+# def measure_integration_errors(f, F, n_values, a, b):
+#     # Calculate and sum error
+#     errors = []
+#     for n in n_values:
+#         F_analytical = F(b) - F(a)
+#         F_numerical = numerical_integration(f, a, b, n)
+#         error = abs(F_analytical - F_numerical)
+#         errors = errors + [error]
 
-    def f(x):
-        return x ** 4 - 3 * x
+#     return errors
 
-    def F(x):
-        return 1 / 5 * x ** 5 - 3 / 2 * x ** 2
+''' END OF CODE TO BE OPTIMIZED '''
 
-    errors = measure_integration_errors(f, F, args.n_max, args.a, args.b)
-    plot_results(args.n_max, errors)
+# This is the function to be integrated
+def f(x):
+    return x ** 4 - 3 * x
+
+# This is the analytical solution to the integral
+def F(x):
+    return 1 / 5 * x ** 5 - 3 / 2 * x ** 2
 
 
 if __name__ == "__main__":
-    main()
+
+    # Parameters
+    n_values = range(500, 20001, 500)
+    a = 0
+    b = 10
+
+    # Call functions
+    errors = measure_integration_errors(f, F, n_values, a, b)
+    
+    # Print results
+    print('  N     Error')
+    for n, e in zip(n_values, errors):
+        print("{:05d}".format(n), "{:1.3e}".format(e))
+
+
