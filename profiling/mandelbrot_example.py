@@ -28,8 +28,9 @@ def mandelbrot(height, width, x=-0.5, y=0, zoom=1, max_iterations=100):
 
         z[m] = z[m] ** 2 + c[m]
 
-        # Save z just in case
-        z_list.append(z)
+        # Save z just in case every 5th iteration
+        if i % 5 == 0:
+            z_list.append(z.copy())
 
         # Find diverging
         diverged = np.greater(
