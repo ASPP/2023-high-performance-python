@@ -3,12 +3,8 @@
 # Several improvements are possible
 
 def numerical_integration(f, a, b, n):
-    s = []
-    for i in range(n):
-        dx = (b - a) / n
-        x = a + (i + 0.5) * dx
-        y = f(x)
-        s = s + [y * dx]
+    dx = (b - a) / n
+    s = [f(a + (i + 0.5) * dx) * dx for i in range(n)]
     return s
 
 
