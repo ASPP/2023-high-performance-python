@@ -3,12 +3,11 @@
 # Several improvements are possible
 
 def numerical_integration(f, a, b, n):
-    s = []
+    s = 0
+    dx = (b - a) / n
+
     for i in range(n):
-        dx = (b - a) / n
-        x = a + (i + 0.5) * dx
-        y = f(x)
-        s = s + [y * dx]
+        s = s + f(a + (i + 0.5) * dx) * dx
     return s
 
 
@@ -25,7 +24,7 @@ def measure_integration_errors(f, F, n_values, a, b):
     # Calculate and sum error
     errors = []
     for F_analytical, F_numerical_boxes in zip(F_a_list, F_n_list):
-        F_numerical = sum(F_numerical_boxes)
+        F_numerical = F_numerical_boxes
         error = abs(F_analytical - F_numerical)
         errors = errors + [error]
 
