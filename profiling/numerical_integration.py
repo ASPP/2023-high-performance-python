@@ -8,7 +8,7 @@ def numerical_integration(f, a, b, n):
         dx = (b - a) / n
         x = a + (i + 0.5) * dx
         y = f(x)
-        s = s + [y * dx]
+        s += y * dx
     return s
 
 
