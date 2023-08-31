@@ -31,28 +31,6 @@ def measure_integration_errors(f, F, n_values, a, b):
 
     return errors
 
-
-# def numerical_integration(f, a, b, n):
-#     s = 0
-#     for i in range(n):
-#         dx = (b - a) / n
-#         x = a + (i + 0.5) * dx
-#         y = f(x)
-#         s += y*dx
-#     return s
-
-
-# def measure_integration_errors(f, F, n_values, a, b):
-#     # Calculate and sum error
-#     errors = []
-#     for n in n_values:
-#         F_analytical = F(b) - F(a)
-#         F_numerical = numerical_integration(f, a, b, n)
-#         error = abs(F_analytical - F_numerical)
-#         errors = errors + [error]
-
-#     return errors
-
 ''' END OF CODE TO BE OPTIMIZED '''
 
 # This is the function to be integrated
