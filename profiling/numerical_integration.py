@@ -4,27 +4,25 @@
 
 def numerical_integration(f, a, b, n):
     s = []
+    dx = (b - a) / n
     for i in range(n):
-        dx = (b - a) / n
         x = a + (i + 0.5) * dx
         y = f(x)
-        s = s + [y * dx]
+        s.append(y * dx)
     return s
 
 
 def measure_integration_errors(f, F, n_values, a, b):
     # Calculate all integrals
-    F_a_list = []
     F_n_list = []
+    F_analytical = F(b) - F(a)
     for n in n_values:
-        F_analytical = F(b) - F(a)
         F_numerical_boxes = numerical_integration(f, a, b, n)
-        F_a_list.append(F_analytical)
         F_n_list.append(F_numerical_boxes)
 
     # Calculate and sum error
     errors = []
-    for F_analytical, F_numerical_boxes in zip(F_a_list, F_n_list):
+    for F_numerical_boxes in F_n_list:
         F_numerical = sum(F_numerical_boxes)
         error = abs(F_analytical - F_numerical)
         errors = errors + [error]
