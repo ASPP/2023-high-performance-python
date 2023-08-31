@@ -8,7 +8,7 @@ def numerical_integration(f, a, b, n):
         dx = (b - a) / n
         x = a + (i + 0.5) * dx
         y = f(x)
-        s = s + [y * dx]
+        s.append(y * dx)
     return s
 
 
@@ -27,7 +27,7 @@ def measure_integration_errors(f, F, n_values, a, b):
     for F_analytical, F_numerical_boxes in zip(F_a_list, F_n_list):
         F_numerical = sum(F_numerical_boxes)
         error = abs(F_analytical - F_numerical)
-        errors = errors + [error]
+        errors.append(error)
 
     return errors
 
