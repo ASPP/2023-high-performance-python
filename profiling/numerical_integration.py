@@ -1,14 +1,15 @@
 ''' START OF CODE TO BE OPTIMIZED '''
 # Do not use any additional packages!
 # Several improvements are possible
-
+import numpy as np
 def numerical_integration(f, a, b, n):
-    s = []
-    for i in range(n):
-        dx = (b - a) / n
-        x = a + (i + 0.5) * dx
-        y = f(x)
-        s = s + [y * dx]
+    s = np.arange(0,n,1)
+    dx = (b - a) / n
+    x = a + (s + 0.5) * dx
+    y = f(x)
+    s = s + y*dx
+        
+    # s = s + [y * dx]
     return s
 
 
